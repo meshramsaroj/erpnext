@@ -132,3 +132,23 @@ def get_purchase_item_details(doctype, name, item_code):
 			}
 			return data
 
+<<<<<<< HEAD
+=======
+def make_quality_inspection_pr(items):
+	items = json.loads(items)
+	quality_inspection = []
+	for item in items:
+		qi = frappe.new_doc("Quality Inspection")
+
+		qi.update({
+			"inspection_type": item.get("inspection_type"),
+			"reference_type": item.get("reference_type"),
+			"reference_name": item.get("reference_name"),
+			"item_code": item.get("item_code"),
+			"sample_size": item.get("sample_size"),
+			"inspected_by": frappe.session.user,
+			"quality_inspection_template": frappe.db.get_value('BOM', item.get("item_code"), 'quality_inspection_template')
+		}).save()
+		quality_inspection.append(qi)
+	return quality_inspection
+>>>>>>> 06449ecb3e... feat: from Delivery note, Purchase receipt and Stock entry Create Quality Inspection
