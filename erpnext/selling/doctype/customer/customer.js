@@ -198,7 +198,6 @@ frappe.ui.form.on("Customer", {
 					days_selected.push(this.value);
 				}
 			});
-			days_selected = days_selected.concat(frm.doc.delivery_days)
 			frm.set_value("delivery_days", days_selected.toString())
 		}
 		else {
