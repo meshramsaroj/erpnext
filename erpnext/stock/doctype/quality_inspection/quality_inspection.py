@@ -147,3 +147,4 @@ def get_purchase_item_details(doctype, name, item_code):
 				"qty": item.qty
 			}
 			return data
+
