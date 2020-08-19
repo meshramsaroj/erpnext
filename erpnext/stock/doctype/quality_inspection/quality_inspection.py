@@ -3,7 +3,6 @@
 
 from __future__ import unicode_literals
 import frappe
-import json
 from frappe.model.document import Document
 from erpnext.stock.doctype.quality_inspection_template.quality_inspection_template \
 	import get_template_details
