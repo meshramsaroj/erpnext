@@ -103,6 +103,16 @@ frappe.ui.form.on("Customer", {
 		}
 	},
 
+	onload: function(frm) {
+		let days_of_week = moment.weekdays()
+		$.each(days_of_week, function(i, m) {
+			$(repl('<div class="col-sm-3">\
+				<div class="checkbox">\
+				<label><input type="checkbox" day="%(day)s" value="%(day)s"/>\%(day)s</label>\
+				</div></div>', {day: m})).appendTo(frm.fields_dict.days_of_the_week.wrapper);
+		});
+	},
+
 	refresh: function(frm) {
 		if(frappe.defaults.get_default("cust_master_name")!="Naming Series") {
 			frm.toggle_display("naming_series", false);
@@ -179,5 +189,25 @@ frappe.ui.form.on("Customer", {
 			${ __("Sales Target") }</a></h5>`);
 		frm.dashboard.add_progress(__('Status'), bars, message).appendTo(section)
 		frm.dashboard.show();
+	},
+	before_save: function(frm) {
+		let days_selected = [];
+		if(frm.doc.delivery_days) {
+			$(frm.fields_dict.days_of_the_week.wrapper).find('input[type="checkbox"]').each(function(i, check) {
+				if($(check).is(":checked")) {
+					days_selected.push(this.value);
+				}
+			});
+			days_selected = days_selected.concat(frm.doc.delivery_days)
+			frm.set_value("delivery_days", days_selected.toString())
+		}
+		else {
+			$(frm.fields_dict.days_of_the_week.wrapper).find('input[type="checkbox"]').each(function(i, check) {
+				if($(check).is(":checked")) {
+					days_selected.push(this.value);
+				}
+			});
+			frm.set_value("delivery_days", days_selected.toString())
+		}
 	}
 });

@@ -1,5 +1,4 @@
 {
- "actions": [],
  "allow_events_in_timeline": 1,
  "allow_import": 1,
  "allow_rename": 1,
@@ -59,6 +58,8 @@
   "delivery_start_time",
   "column_break_42",
   "delivery_end_time",
+  "days_of_the_week",
+  "delivery_days",
   "credit_limit_section",
   "payment_terms",
   "credit_limits",
@@ -76,7 +77,8 @@
   "default_commission_rate",
   "sales_team_section",
   "sales_team",
-  "customer_pos_id"
+  "customer_pos_id",
+  "column_break_22"
  ],
  "fields": [
   {
@@ -535,13 +537,24 @@
    "fieldname": "sales_target_sb",
    "fieldtype": "Section Break",
    "label": "Sales Target"
+  },
+  {
+   "columns": 11,
+   "fieldname": "delivery_days",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Delivery Days"
+  },
+  {
+   "fieldname": "days_of_the_week",
+   "fieldtype": "HTML",
+   "label": "Days of the week"
   }
  ],
  "icon": "fa fa-user",
  "idx": 363,
  "image_field": "image",
- "links": [],
- "modified": "2020-06-30 22:24:37.691545",
+ "modified": "2020-08-18 05:12:17.235873",
  "modified_by": "Administrator",
  "module": "Selling",
  "name": "Customer",
