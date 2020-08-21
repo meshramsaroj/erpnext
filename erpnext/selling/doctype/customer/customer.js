@@ -192,21 +192,12 @@ frappe.ui.form.on("Customer", {
 	},
 	before_save: function(frm) {
 		let days_selected = [];
-		if(frm.doc.delivery_days) {
-			$(frm.fields_dict.days_of_the_week.wrapper).find('input[type="checkbox"]').each(function(i, check) {
-				if($(check).is(":checked")) {
-					days_selected.push(this.value);
-				}
-			});
-			frm.set_value("delivery_days", days_selected.toString())
-		}
-		else {
-			$(frm.fields_dict.days_of_the_week.wrapper).find('input[type="checkbox"]').each(function(i, check) {
-				if($(check).is(":checked")) {
-					days_selected.push(this.value);
-				}
-			});
-			frm.set_value("delivery_days", days_selected.toString())
-		}
+		$(frm.fields_dict.days_of_the_week.wrapper).find('input[type="checkbox"]').each(function(i, check) {
+			if($(check).is(":checked")) {
+				days_selected.push(this.value);
+			}
+		});
+		frm.set_value("delivery_days", days_selected.toString())
+		
 	}
 });

@@ -58,7 +58,7 @@
   "delivery_start_time",
   "column_break_42",
   "delivery_end_time",
-  "days_of_the_week",
+  "delivery_days_html",
   "delivery_days",
   "credit_limit_section",
   "payment_terms",
@@ -539,14 +539,13 @@
    "label": "Sales Target"
   },
   {
-   "columns": 11,
    "fieldname": "delivery_days",
    "fieldtype": "Data",
    "hidden": 1,
    "label": "Delivery Days"
   },
   {
-   "fieldname": "days_of_the_week",
+   "fieldname": "delivery_days_html",
    "fieldtype": "HTML",
    "label": "Days of the week"
   }
@@ -554,7 +553,7 @@
  "icon": "fa fa-user",
  "idx": 363,
  "image_field": "image",
- "modified": "2020-08-18 05:12:17.235873",
+ "modified": "2020-08-21 03:11:38.548633",
  "modified_by": "Administrator",
  "module": "Selling",
  "name": "Customer",
