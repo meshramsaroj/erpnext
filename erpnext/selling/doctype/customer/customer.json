@@ -77,8 +77,7 @@
   "default_commission_rate",
   "sales_team_section",
   "sales_team",
-  "customer_pos_id",
-  "column_break_22"
+  "customer_pos_id"
  ],
  "fields": [
   {
@@ -492,10 +491,6 @@
    "label": "Allow Sales Invoice Creation Without Delivery Note"
   },
   {
-   "fieldname": "column_break_22",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "delivery_end_time",
    "fieldtype": "Time",
    "label": "Delivery End Time"
@@ -553,7 +548,7 @@
  "icon": "fa fa-user",
  "idx": 363,
  "image_field": "image",
- "modified": "2020-08-21 03:11:38.548633",
+ "modified": "2020-08-21 06:23:46.227834",
  "modified_by": "Administrator",
  "module": "Selling",
  "name": "Customer",
