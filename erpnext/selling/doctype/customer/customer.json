@@ -499,7 +499,7 @@
    "collapsible": 1,
    "fieldname": "delivery_window",
    "fieldtype": "Section Break",
-   "label": "Delivery Window"
+   "label": "Delivery Preferences"
   },
   {
    "fieldname": "delivery_start_time",
@@ -548,7 +548,7 @@
  "icon": "fa fa-user",
  "idx": 363,
  "image_field": "image",
- "modified": "2020-08-21 06:23:46.227834",
+ "modified": "2020-08-24 07:09:48.663696",
  "modified_by": "Administrator",
  "module": "Selling",
  "name": "Customer",
