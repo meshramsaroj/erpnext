@@ -1,93 +1,103 @@
 <style>
-.print-format.landscape {
-	margin: 100px;
-}
+	.print-format.landscape {
+		margin: 100px;
+	}
 
-.print-format td,.print-format th{
-	padding: 12px !important ;
-}
-.customer-info {
-	color: #366092;
-	margin: 20px 0;
-	text-align:center;
-}
+	.print-format td,
+	.print-format th {
+		padding: 12px !important;
+	}
 
-.print-format p{
-	color: #366092;
-	font-size: 16px;
-}
-.customer-info h2{
-    font-weight: bold;
-	margin: 0px;
-    text-transform: uppercase;
-}
+	.customer-info {
+		color: #366092;
+		margin: 20px 0;
+		text-align: center;
+	}
 
-.table-bordered thead tr th,.table-bordered tbody tr td{
-	border: 1px solid #0000ff;
-}
+	.print-format .customer-info p {
+		color: #366092;
+		font-size: 16px;
+	}
 
-.table-bordered thead tr th{
-	background-color:#0000ff !important;
-    color: white;
-    font-size: 15px;
-    padding: 10px;
-	text-align: center;
-	text-transform: uppercase;
-}
+	.customer-info h2 {
+		font-weight: bold;
+		margin: 0px;
+		text-transform: uppercase;
+	}
 
-.table-bordered tbody tr:nth-child(odd) td{
-	background-color: #cfe2f3;
-}
+	.table-bordered thead tr th,
+	.table-bordered tbody tr td {
+		border: 1px solid #0000ff;
+	}
 
-.address,.statement-date{
-	display: inline-block;
-}
-.address{
-	width: 60%;
-}
-.statement-date{
-	float:right;
-	width: 40%;
-}
-.address .row p ,.statement-date .row label,.value{
-	color: #948a8a;
-	font-size: 15px;
-}
+	.table-bordered thead tr th {
+		background-color: #0000ff !important;
+		color: #ffffff;
+		font-size: 15px;
+		padding: 10px;
+		text-align: center;
+		text-transform: uppercase;
+	}
 
+	.table-bordered tbody tr:nth-child(odd) td {
+		background-color: #cfe2f3;
+	}
+
+	.address,
+	.statement-date {
+		display: inline-block;
+	}
+
+	.address {
+		width: 60%;
+	}
+
+	.statement-date {
+		float: right;
+		width: 40%;
+	}
+
+	.address p,
+	.statement-date .row label,
+	.value,
+	.print-date {
+		color: #948a8a;
+		font-size: 15px;
+	}
 </style>
-<div class=row>
-	<div class="col-sm-6 address">
-		<div class="row">
-			<p> As per company letter head address</p>
-		</div>
+
+<div class="row">
+	<div class="col-xs-6 address">
+		<p> As per company letter head address</p>
 	</div>
-	<div class="col-sm-6 statement-date ">
+	<div class="col-xs-6 statement-date">
 		<div class="row">
-			<div  class="col-xs-5">
+			<div class="col-xs-5">
 				<label>Statement Date : </label>
 			</div>
-			<div class="col-xs-7  value text-right">
-				{%= frappe.datetime.str_to_user(filters.from_date) %}  {%= __("to") %}  {%= frappe.datetime.str_to_user(filters.to_date) %}
+			<div class="col-xs-7 value text-right">
+				{%= frappe.datetime.str_to_user(filters.from_date) %} {%= __("to") %}
+				{%= frappe.datetime.str_to_user(filters.to_date) %}
 			</div>
 		</div>
 	</div>
 </div>
 
 <div class="customer-info">
-	<h2 >{%= __("Statement of Account") %}</h2>
-	<p >
+	<h2>{%= __("Statement of Account") %}</h2>
+	<p>
 		{% if (filters.party_name) { %}
-			{%= filters.party_name %}
+		{%= filters.party_name %}
 		{% } else if (filters.party && filters.party.length) { %}
-			{%= filters.party %}
+		{%= filters.party %}
 		{% } else if (filters.account) { %}
-			{%= filters.account %}
+		{%= filters.account %}
 		{% } %}
 	</p>
 
-	<p >
+	<p>
 		{% if (filters.tax_id) { %}
-		{%= __("Tax Id: ")%}	{%= filters.tax_id %}
+		{%= __("Tax Id: ")%} {%= filters.tax_id %}
 		{% } %}
 	</p>
 
@@ -97,7 +107,7 @@
 
 </div>
 <table class="table table-bordered">
-	<thead >
+	<thead>
 		<tr>
 			<th style="width: 12%">{%= __("Date") %}</th>
 			<th style="width: 15%">{%= __("Description") %}</th>
@@ -108,7 +118,7 @@
 	</thead>
 	<tbody>
 		{% for(var i=0, l=data.length; i<l; i++) { %}
-			<tr>
+		<tr>
 			{% if(data[i].posting_date) { %}
 				<td>{%= frappe.datetime.str_to_user(data[i].posting_date) %}</td>
 				<td>{%= data[i].voucher_type %}
@@ -125,4 +135,5 @@
 		{% } %}
 	</tbody>
 </table>
-<div class="text-right text-muted">Printed On {%= frappe.datetime.str_to_user(frappe.datetime.get_datetime_as_string()) %}</div>
+<p class="text-right print-date">Printed On
+	{%= frappe.datetime.str_to_user(frappe.datetime.get_datetime_as_string()) %}</p>
