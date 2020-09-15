@@ -49,33 +49,34 @@
 	}
 
 	.address {
-		width: 60%;
+		width: 50%;
 	}
 
 	.statement-date {
 		float: right;
-		width: 40%;
+		width: 50%;
 	}
 
 	.address p,
 	.statement-date .row label,
-	.value,
+	.statement-date .row .value,
 	.print-date {
 		color: #948a8a;
 		font-size: 15px;
 	}
 </style>
-
 <div class="row">
 	<div class="col-xs-6 address">
+
 		<p> As per company letter head address</p>
+
 	</div>
-	<div class="col-xs-6 statement-date">
+	<div class="col-xs-6 statement-date ">
 		<div class="row">
-			<div class="col-xs-5">
+			<div class="col-xs-6 text-right">
 				<label>Statement Date : </label>
 			</div>
-			<div class="col-xs-7 value text-right">
+			<div class="col-xs-6 value text-right">
 				{%= frappe.datetime.str_to_user(filters.from_date) %} {%= __("to") %}
 				{%= frappe.datetime.str_to_user(filters.to_date) %}
 			</div>
