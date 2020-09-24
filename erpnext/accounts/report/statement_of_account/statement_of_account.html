@@ -120,18 +120,18 @@
 		{% for(var i=0, l=data.length; i<l; i++) { %}
 		<tr>
 			{% if(data[i].posting_date) { %}
-				<td>{%= frappe.datetime.str_to_user(data[i].posting_date) %}</td>
-				<td>{%= data[i].voucher_type %}
-					<br>{%= data[i].voucher_no %}</td>
-				<td style="text-align: right">
-					{%= format_currency(data[i].debit, filters.presentation_currency) %}</td>
-				<td style="text-align: right">
-						{%= format_currency(data[i].credit, filters.presentation_currency) %}</td>
-				<td style="text-align: right">
-					{%= format_currency(data[i].balance, filters.presentation_currency) %}
-				</td>
+			<td>{%= frappe.datetime.str_to_user(data[i].posting_date) %}</td>
+			<td>{%= data[i].voucher_type %}
+				<br>{%= data[i].voucher_no %}</td>
+			<td style="text-align: right">
+				{%= format_currency(data[i].debit, filters.presentation_currency) %}</td>
+			<td style="text-align: right">
+				{%= format_currency(data[i].credit, filters.presentation_currency) %}</td>
+			<td style="text-align: right">
+				{%= format_currency(data[i].balance, filters.presentation_currency) %}
+			</td>
 			{% } %}
-			</tr>
+		</tr>
 		{% } %}
 	</tbody>
 </table>
