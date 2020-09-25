@@ -10,7 +10,10 @@ frappe.query_reports["Statement of Account"] = {
 			"fieldtype": "Link",
 			"options": "Company",
 			"default": frappe.defaults.get_user_default("Company"),
-			"reqd": 1
+			"reqd": 1,
+			on_change: (report) => {
+				get_addresses(report);
+			}
 		},
 		{
 			"fieldname":"finance_book",
@@ -58,8 +61,9 @@ frappe.query_reports["Statement of Account"] = {
 			"fieldtype": "Link",
 			"options": "Party Type",
 			"default": "",
-			on_change: function() {
+			on_change: function(report) {
 				frappe.query_report.set_filter_value('party', "");
+				get_addresses(report);
 			}
 		},
 		{
@@ -71,13 +75,13 @@ frappe.query_reports["Statement of Account"] = {
 					return true;
 				}
 				let party_type = frappe.query_report.get_filter_value('party_type');
-				if (!party_type) { 
+				if (!party_type) {
 					return true;
 				}
 
 				return frappe.db.get_link_options(party_type, txt);
 			},
-			on_change: function() {
+			on_change: function(report) {
 				var party_type = frappe.query_report.get_filter_value('party_type');
 				var parties = frappe.query_report.get_filter_value('party');
 
@@ -91,6 +95,8 @@ frappe.query_reports["Statement of Account"] = {
 						frappe.query_report.set_filter_value('party_name', value[fieldname]);
 					});
 				}
+
+				get_addresses(report);
 			}
 		},
 		{
@@ -99,7 +105,27 @@ frappe.query_reports["Statement of Account"] = {
 			"fieldtype": "Data",
 			"hidden": 1
 		},
-	]
+	],
 };
 
 erpnext.utils.add_dimensions('Statement of Account', 15)
+
+function get_addresses(report) {
+	let filters = report.get_filter_values();
+
+	if (!filters.company || !filters.party_type || !filters.party[0]) {
+		return
+	}
+
+	frappe.call({
+		method: "erpnext.accounts.report.statement_of_account.statement_of_account.get_addresses",
+		args: {
+			company: filters.company,
+			party_type: filters.party_type,
+			party: filters.party[0]
+		},
+		callback: function(r) {
+			report.addresses = r.message;
+		}
+	});
+}
