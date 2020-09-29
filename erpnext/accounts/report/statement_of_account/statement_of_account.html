@@ -1,11 +1,11 @@
 <style>
 	.print-format.landscape {
-		margin: 100px;
+		padding: 6rem;
 	}
 
-	.print-format td,
-	.print-format th {
-		padding: 12px !important;
+	.print-format tr th {
+		vertical-align: bottom !important;
+		padding: 1rem 5rem !important;
 	}
 
 	.customer-info {
@@ -34,7 +34,6 @@
 		background-color: #0000ff !important;
 		color: #ffffff;
 		font-size: 15px;
-		padding: 10px;
 		text-align: center;
 		text-transform: uppercase;
 	}
@@ -57,6 +56,12 @@
 		width: 50%;
 	}
 
+	.address .company {
+		font-size: 15px;
+		color: #595959;
+		font-weight: bold;
+	}
+
 	.address p,
 	.statement-date .row label,
 	.statement-date .row .value,
@@ -68,7 +73,10 @@
 
 <div class="row">
 	<div class="col-xs-6 address">
-		<p> As per company letter head address</p>
+		<p class="company"> {%= report.addresses.company.name %}
+			<br>{%= report.addresses.company.address_line1 %} , {%= report.addresses.company.pincode %}
+			<br>{%= report.addresses.company.city %} , {%= report.addresses.company.state %}
+		</p>
 	</div>
 	<div class="col-xs-6 statement-date ">
 		<div class="row">
@@ -101,38 +109,40 @@
 		{% } %}
 	</p>
 
-	<!-- <p>
-		{% frappe.db.get_value("Dynamic Link", {"link_doctype": "Customer", "link_name": filters.party[0]},"parent") %}
-	</p> -->
+	<p>{%= report.addresses.party.address_line1 %},
+		<br>{%= report.addresses.party.city %},{%= report.addresses.party.state %}
+	</p>
 
 </div>
 <table class="table table-bordered">
 	<thead>
 		<tr>
-			<th style="width: 12%">{%= __("Date") %}</th>
-			<th style="width: 15%">{%= __("Description") %}</th>
-			<th style="width: 15%">{%= __("Invoice") %}</th>
-			<th style="width: 15%">{%= __("Payment/Credit") %}</th>
-			<th style="width: 18%">{%= __("Balance (Dr - Cr)") %}</th>
+			<th>{%= __("Date") %}</th>
+			<th style="width: 33%;">{%= __("Description") %}</th>
+			<th>{%= __("Charges") %}</th>
+			<th>{%= __("Credits") %}</th>
+			<th style="width: 13%;">{%= __("Account Balance") %}</th>
 		</tr>
 	</thead>
 	<tbody>
 		{% for(var i=0, l=data.length; i<l; i++) { %}
 		<tr>
 			{% if(data[i].posting_date) { %}
-			<td>{%= frappe.datetime.str_to_user(data[i].posting_date) %}</td>
+			<td class="text-center">{%= frappe.datetime.str_to_user(data[i].posting_date) %}</td>
 			<td>{%= data[i].voucher_type %}
 				<br>{%= data[i].voucher_no %}</td>
-			<td style="text-align: right">
+			<td class="text-right">
 				{%= format_currency(data[i].debit, filters.presentation_currency) %}</td>
-			<td style="text-align: right">
+			<td class="text-right">
 				{%= format_currency(data[i].credit, filters.presentation_currency) %}</td>
-			<td style="text-align: right">
+			<td class="text-right">
 				{%= format_currency(data[i].balance, filters.presentation_currency) %}
 			</td>
 			{% } %}
 		</tr>
 		{% } %}
+
+
 	</tbody>
 </table>
 <p class="text-right print-date">Printed On
