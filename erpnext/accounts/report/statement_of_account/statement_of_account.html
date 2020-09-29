@@ -73,77 +73,84 @@
 
 <div class="row">
 	<div class="col-xs-6 address">
-		<p class="company"> {%= report.addresses.company.name %}
-			<br>{%= report.addresses.company.address_line1 %} , {%= report.addresses.company.pincode %}
-			<br>{%= report.addresses.company.city %} , {%= report.addresses.company.state %}
+		<p class="company">
+			{{ report.addresses.company.name }}<br>
+			{{ report.addresses.company.address_line1 }}, {{ report.addresses.company.pincode }}<br>
+			{{ report.addresses.company.city }}, {{ report.addresses.company.state }}
 		</p>
 	</div>
 	<div class="col-xs-6 statement-date ">
 		<div class="row">
 			<div class="col-xs-6 text-right">
-				<label>Statement Date : </label>
+				<label>Statement Date: </label>
 			</div>
 			<div class="col-xs-6 value text-right">
-				{%= frappe.datetime.str_to_user(filters.from_date) %} {%= __("to") %}
-				{%= frappe.datetime.str_to_user(filters.to_date) %}
+				{{ frappe.datetime.str_to_user(filters.from_date) }} {{ __("to") }}
+				{{ frappe.datetime.str_to_user(filters.to_date) }}
 			</div>
 		</div>
 	</div>
 </div>
 
 <div class="customer-info">
-	<h2>{%= __("Statement of Account") %}</h2>
+	<h2>{{ __("Statement of Account") }}</h2>
 	<p>
 		{% if (filters.party_name) { %}
-		{%= filters.party_name %}
+			{%= filters.party_name %}
 		{% } else if (filters.party && filters.party.length) { %}
-		{%= filters.party %}
+			{%= filters.party %}
 		{% } else if (filters.account) { %}
-		{%= filters.account %}
+			{%= filters.account %}
 		{% } %}
 	</p>
 
 	<p>
 		{% if (filters.tax_id) { %}
-		{%= __("Tax Id: ")%} {%= filters.tax_id %}
+			{%= __("Tax ID: ")%} {%= filters.tax_id %}
 		{% } %}
 	</p>
 
-	<p>{%= report.addresses.party.address_line1 %},
-		<br>{%= report.addresses.party.city %},{%= report.addresses.party.state %}
+	<p>
+		{{ report.addresses.party.address_line1 }},<br>
+		{{ report.addresses.party.city }}, {{ report.addresses.party.state }}
 	</p>
-
 </div>
+
 <table class="table table-bordered">
 	<thead>
 		<tr>
-			<th>{%= __("Date") %}</th>
-			<th style="width: 33%;">{%= __("Description") %}</th>
-			<th>{%= __("Charges") %}</th>
-			<th>{%= __("Credits") %}</th>
-			<th style="width: 13%;">{%= __("Account Balance") %}</th>
+			<th>{{ __("Date") }}</th>
+			<th style="width: 33%;">{{ __("Description") }}</th>
+			<th>{{ __("Charges") }}</th>
+			<th>{{ __("Credits") }}</th>
+			<th style="width: 13%;">{{ __("Account Balance") }}</th>
 		</tr>
 	</thead>
+
 	<tbody>
-		{% for(var i=0, l=data.length; i<l; i++) { %}
-		<tr>
-			{% if(data[i].posting_date) { %}
-			<td class="text-center">{%= frappe.datetime.str_to_user(data[i].posting_date) %}</td>
-			<td>{%= data[i].voucher_type %}
-				<br>{%= data[i].voucher_no %}</td>
-			<td class="text-right">
-				{%= format_currency(data[i].debit, filters.presentation_currency) %}</td>
-			<td class="text-right">
-				{%= format_currency(data[i].credit, filters.presentation_currency) %}</td>
-			<td class="text-right">
-				{%= format_currency(data[i].balance, filters.presentation_currency) %}
-			</td>
-			{% } %}
-		</tr>
-		{% } %}
-
-
+		{% for row in data %}
+			<tr>
+				{% if row.posting_date %}
+					<td class="text-center">
+						{{ frappe.datetime.str_to_user(row.posting_date) }}
+					</td>
+					<td>
+						{{ row.voucher_type }}<br>{{ row.voucher_no }}
+					</td>
+					<td class="text-right">
+						{{ format_currency(row.debit, filters.presentation_currency) }}
+					</td>
+					<td class="text-right">
+						{{ format_currency(row.credit, filters.presentation_currency) }}
+					</td>
+					<td class="text-right">
+						{{ format_currency(row.balance, filters.presentation_currency) }}
+					</td>
+				{% endif %}
+			</tr>
+		{% endfor %}
 	</tbody>
 </table>
+
 <p class="text-right print-date">Printed On
-	{%= frappe.datetime.str_to_user(frappe.datetime.get_datetime_as_string()) %}</p>
+	{{ frappe.datetime.str_to_user(frappe.datetime.get_datetime_as_string()) }}</p>
