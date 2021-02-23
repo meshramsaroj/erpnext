@@ -643,7 +643,7 @@
   {
    "fetch_from": "work_order.purchase_receipt",
    "fieldname": "purchase_receipt",
-   "fieldtype": "Data",
+   "fieldtype": "Read Only",
    "label": "Purchase Receipt",
    "read_only": 1
   }
@@ -651,7 +651,7 @@
  "icon": "fa fa-file-text",
  "idx": 1,
  "is_submittable": 1,
- "modified": "2021-02-23 03:28:53.093340",
+ "modified": "2021-02-23 05:40:35.211880",
  "modified_by": "Administrator",
  "module": "Stock",
  "name": "Stock Entry",
