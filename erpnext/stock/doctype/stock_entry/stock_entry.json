@@ -645,7 +645,7 @@
    "fieldname": "purchase_receipt",
    "fieldtype": "Read Only",
    "label": "Purchase Receipt",
-   "read_only": 1
+  
   }
  ],
  "icon": "fa fa-file-text",
