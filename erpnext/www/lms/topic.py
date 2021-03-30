@@ -18,6 +18,7 @@ def get_context(context):
 	context.topic = frappe.get_doc("Topic", topic)
 	context.contents = get_contents(context.topic, course, program)
 	context.has_access =  utils.allowed_program_access(program)
+	context.total_progress = calculate_progress(context.contents)
 
 def get_contents(topic, course, program):
 	student = utils.get_current_student()
@@ -43,3 +44,13 @@ def get_contents(topic, course, program):
 				progress.append({'content': content, 'content_type': content.doctype, 'completed': status, 'score': score, 'result': result})
 
 	return progress
+
+def calculate_progress(progress):
+	total_topic = len(progress)
+	complete_topic = 0
+	for p in progress:
+		for status in p:
+			if status == "completed" and p[status] == True:
+				complete_topic = complete_topic + 1
+	total_progress = int((complete_topic * 100) / total_topic)
+	return total_progress
