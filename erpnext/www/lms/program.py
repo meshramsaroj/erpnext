@@ -17,7 +17,7 @@ def get_context(context):
 	context.courses = [frappe.get_doc("Course", course.course) for course in context.program.courses]
 	context.has_access = utils.allowed_program_access(program)
 	context.progress = get_course_progress(context.courses, program)
-	context.total_progress = calculate_progress(context.progress)
+	context.total_progress = calculate_course_progress(context.progress)
 
 def get_program(program_name):
 	try:
@@ -29,12 +29,11 @@ def get_course_progress(courses, program):
 	progress = {course.name: utils.get_course_progress(course, program) for course in courses}
 	return progress
 
-def calculate_progress(progress):
-	total_topic = len(progress)
-	complete_topic = 0
-	for p in progress:
-		for status in progress[p]:
-			if status == "completed" and progress[p][status] == True:
-				complete_topic = complete_topic + 1
-	total_progress = int((complete_topic * 100) / total_topic)
+def calculate_course_progress(course_progress):
+	total_courses = len(course_progress)
+	completed_courses = 0
+	for progress in course_progress:
+		if course_progress[progress].get("completed"):
+			completed_courses = completed_courses + 1
+	total_progress = int((completed_courses * 100) / total_courses)
 	return total_progress
