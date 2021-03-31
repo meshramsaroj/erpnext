@@ -33,5 +33,5 @@ def calculate_topic_progress(topics,topic_progress):
 	for topic in topic_progress:
 		if topic_progress[topic].get("completed"):
 			completed_topic = completed_topic + 1
-	total_progress = int((completed_topic * 100) / total_topic)
+	total_progress = int((completed_topic * 100) / total_topics)
 	return total_progress
