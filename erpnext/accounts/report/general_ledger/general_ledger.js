@@ -67,6 +67,7 @@ frappe.query_reports["General Ledger"] = {
 			"default": "",
 			on_change: function() {
 				frappe.query_report.set_filter_value('party_name', "");
+				frappe.query_report.set_filter_value('party', "");
 			}
 		},
 		{
