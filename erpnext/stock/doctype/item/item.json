@@ -239,7 +239,7 @@
    "label": "Disabled"
   },
   {
-   "default": "0",
+   "default": "1",
    "fieldname": "allow_alternative_item",
    "fieldtype": "Check",
    "label": "Allow Alternative Item"
@@ -270,7 +270,8 @@
    "depends_on": "is_stock_item",
    "fieldname": "valuation_rate",
    "fieldtype": "Currency",
-   "label": "Valuation Rate"
+   "label": "Valuation Rate",
+   "reqd": 1
   },
   {
    "bold": 1,
@@ -371,7 +372,8 @@
    "fieldname": "default_material_request_type",
    "fieldtype": "Select",
    "label": "Default Material Request Type",
-   "options": "Purchase\nMaterial Transfer\nMaterial Issue\nManufacture\nCustomer Provided"
+   "options": "Purchase\nMaterial Transfer\nMaterial Issue\nManufacture\nCustomer Provided",
+   "reqd": 1
   },
   {
    "depends_on": "is_stock_item",
@@ -400,7 +402,8 @@
    "depends_on": "is_stock_item",
    "fieldname": "weight_per_unit",
    "fieldtype": "Float",
-   "label": "Weight Per Unit"
+   "label": "Weight Per Unit",
+   "reqd": 1
   },
   {
    "depends_on": "eval:doc.is_stock_item",
@@ -408,7 +411,8 @@
    "fieldtype": "Link",
    "ignore_user_permissions": 1,
    "label": "Weight UOM",
-   "options": "UOM"
+   "options": "UOM",
+   "reqd": 1
   },
   {
    "collapsible": 1,
@@ -426,7 +430,6 @@
    "options": "Item Reorder"
   },
   {
-   "collapsible": 1,
    "fieldname": "unit_of_measure_conversion",
    "fieldtype": "Section Break",
    "label": "Units of Measure"
@@ -441,7 +444,6 @@
    "options": "UOM Conversion Detail"
   },
   {
-   "collapsible": 1,
    "collapsible_depends_on": "eval:doc.has_batch_no || doc.has_serial_no || doc.is_fixed_asset",
    "depends_on": "eval:doc.is_stock_item || doc.is_fixed_asset",
    "fieldname": "serial_nos_and_batches",
@@ -449,7 +451,7 @@
    "label": "Serial Nos and Batches"
   },
   {
-   "default": "0",
+   "default": "1",
    "depends_on": "eval:doc.is_stock_item",
    "fieldname": "has_batch_no",
    "fieldtype": "Check",
@@ -560,7 +562,6 @@
    "options": "Item Default"
   },
   {
-   "collapsible": 1,
    "fieldname": "purchase_details",
    "fieldtype": "Section Break",
    "label": "Purchase, Replenishment Details",
@@ -1134,7 +1135,7 @@
  "idx": 2,
  "image_field": "image",
  "max_attachments": 1,
- "modified": "2021-04-20 07:23:16.258679",
+ "modified": "2021-05-24 17:30:24.470793",
  "modified_by": "Administrator",
  "module": "Stock",
  "name": "Item",
