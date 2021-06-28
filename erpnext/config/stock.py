@@ -200,6 +200,7 @@ def get_data():
 					"type": "doctype",
 					"name": "Package Tag",
 					"onboard": 1,
+					"dependencies": ["Item", "Batch"]
 				},
 				{
 					"type": "doctype",
