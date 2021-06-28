@@ -198,6 +198,11 @@ def get_data():
 				},
 				{
 					"type": "doctype",
+					"name": "Package Tag",
+					"onboard": 1,
+				},
+				{
+					"type": "doctype",
 					"name": "Installation Note",
 					"dependencies": ["Item"],
 				},
@@ -216,6 +221,7 @@ def get_data():
 					"name": "Serial No Warranty Expiry",
 					"doctype": "Serial No"
 				},
+
 			]
 		},
 		{
