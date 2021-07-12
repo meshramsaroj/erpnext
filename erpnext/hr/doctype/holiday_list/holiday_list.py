@@ -63,7 +63,7 @@ class HolidayList(Document):
 		self.set('holidays', [])
 
 	def on_update(self):
-		calendar_events = frappe.get_all("Event", filters= {"holiday_list":self.name}, fields=["name","starts_on"])
+		calendar_events = frappe.get_all("Event", filters= {"holiday_list": self.name}, fields=["name", "starts_on"])
 		if not calendar_events:
 			for holiday in self.holidays:
 				frappe.get_doc({
@@ -82,7 +82,7 @@ class HolidayList(Document):
 			for event in calendar_events:
 				for holiday in holidays:
 					if(event.starts_on != holiday):
-						frappe.delete_doc("Event",event.name)
+						frappe.delete_doc("Event", event.name)
 
 @frappe.whitelist()
 def get_events(start, end, filters=None):
