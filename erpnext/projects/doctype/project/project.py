@@ -72,7 +72,7 @@ class Project(Document):
 					args = {
 						'doctype': 'Task',
 						'name': task_doc.name,
-						'assign_to' : task.assigned_user,
+						'assign_to' : [task.assigned_user],
 					}
 					add(args)
 

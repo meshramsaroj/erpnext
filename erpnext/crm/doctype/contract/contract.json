@@ -322,8 +322,9 @@
   },
   {
    "fieldname": "amount_in_figures",
-   "fieldtype": "Data",
-   "label": "Amount In Figures"
+   "fieldtype": "Currency",
+   "label": "Amount In Figures",
+   "options": "Company:company:default_currency"
   },
   {
    "fieldname": "contract_terms_display",
@@ -376,7 +377,7 @@
   }
  ],
  "is_submittable": 1,
- "modified": "2021-05-26 04:52:22.819589",
+ "modified": "2021-07-05 22:26:35.481510",
  "modified_by": "Administrator",
  "module": "CRM",
  "name": "Contract",
