@@ -15,7 +15,7 @@ frappe.ui.form.on('Batch', {
 		frm.make_methods = {
 			'Sales Order': () => frm.trigger("select_customer_and_create_sales_order"),
 			'Package Tag': () => frappe.model.open_mapped_doc({
-				method: "erpnext.compliance.doctype.package_tag.package_tag.make_package_tag_from_batch",
+				method: "erpnext.stock.doctype.package_tag.package_tag.make_package_tag_from_batch",
 				frm: frm
 			}),
 			'Material Request': () => frappe.model.open_mapped_doc({
@@ -124,7 +124,14 @@ frappe.ui.form.on('Batch', {
 								fieldname: 'to_warehouse',
 								label: __('To Warehouse'),
 								fieldtype: 'Link',
-								options: 'Warehouse'
+								options: 'Warehouse',
+								get_query: () => {
+									return {
+										filters: {
+											"is_group": 0
+										}
+									}
+								}
 							}
 						];
 
