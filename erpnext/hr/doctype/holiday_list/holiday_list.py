@@ -81,19 +81,13 @@ class HolidayList(Document):
 				}).insert(ignore_permissions=True)
 
 		else:
-			holidays = []
-			for holiday in self.holidays:
-				if holiday.is_weekly_off:
-					continue
-				holidays.append(frappe.utils.get_datetime_str(holiday.holiday_date))
+			holidays = [frappe.utils.get_datetime_str(holiday.holiday_date) for holiday in self.holidays if not holiday.is_weekly_off]
 
 			for event in calendar_events:
 				if not frappe.utils.get_datetime_str(event.starts_on) in holidays:
 					frappe.delete_doc("Event", event.name)
 
-			starts_on = []
-			for event in calendar_events:
-				starts_on.append(frappe.utils.get_datetime_str(event.starts_on))
+			starts_on = [frappe.utils.get_datetime_str(event.starts_on) for event in calendar_events]
 
 			for holiday in self.holidays:
 				if holiday.is_weekly_off or frappe.utils.get_datetime_str(holiday.holiday_date) in starts_on:
