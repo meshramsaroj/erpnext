@@ -96,19 +96,17 @@ class HolidayList(Document):
 				starts_on.append(frappe.utils.get_datetime_str(event.starts_on))
 
 			for holiday in self.holidays:
-				if holiday.is_weekly_off:
+				if holiday.is_weekly_off or frappe.utils.get_datetime_str(holiday.holiday_date) in starts_on:
 					continue
-
-				if not frappe.utils.get_datetime_str(holiday.holiday_date) in starts_on:
-					frappe.get_doc({
-						"doctype": "Event",
-						"subject": "Holiday " + holiday.holiday_date,
-						"starts_on": holiday.holiday_date,
-						"event_category": "Holiday",
-						"holiday_list": self.name,
-						"event_type": "Public",
-						"all_day":1
-					}).insert(ignore_permissions=True)
+				frappe.get_doc({
+					"doctype": "Event",
+					"subject": "Holiday " + holiday.holiday_date,
+					"starts_on": holiday.holiday_date,
+					"event_category": "Holiday",
+					"holiday_list": self.name,
+					"event_type": "Public",
+					"all_day":1
+				}).insert(ignore_permissions=True)
 
 @frappe.whitelist()
 def get_events(start, end, filters=None):
