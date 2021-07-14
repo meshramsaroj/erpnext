@@ -24,6 +24,7 @@ class HolidayList(Document):
 			ch.description = self.weekly_off
 			ch.holiday_date = d
 			ch.idx = last_idx + i + 1
+			ch.is_weekly_off = 1
 
 	def validate_values(self):
 		if not self.weekly_off:
@@ -66,6 +67,9 @@ class HolidayList(Document):
 		calendar_events = frappe.get_all("Event", filters={"holiday_list": self.name}, fields=["name", "starts_on"])
 		if not calendar_events:
 			for holiday in self.holidays:
+				if holiday.is_weekly_off:
+					continue
+
 				frappe.get_doc({
 					"doctype": "Event",
 					"subject": "Holiday " + holiday.holiday_date,
@@ -75,13 +79,36 @@ class HolidayList(Document):
 					"event_type": "Public",
 					"all_day":1
 				}).insert(ignore_permissions=True)
+
 		else:
 			holidays = []
 			for holiday in self.holidays:
+				if holiday.is_weekly_off:
+					continue
 				holidays.append(frappe.utils.get_datetime_str(holiday.holiday_date))
+
 			for event in calendar_events:
-				if not event.starts_on in holidays:
+				if not frappe.utils.get_datetime_str(event.starts_on) in holidays:
 					frappe.delete_doc("Event", event.name)
+
+			starts_on = []
+			for event in calendar_events:
+				starts_on.append(frappe.utils.get_datetime_str(event.starts_on))
+
+			for holiday in self.holidays:
+				if holiday.is_weekly_off:
+					continue
+
+				if not frappe.utils.get_datetime_str(holiday.holiday_date) in starts_on:
+					frappe.get_doc({
+						"doctype": "Event",
+						"subject": "Holiday " + holiday.holiday_date,
+						"starts_on": holiday.holiday_date,
+						"event_category": "Holiday",
+						"holiday_list": self.name,
+						"event_type": "Public",
+						"all_day":1
+					}).insert(ignore_permissions=True)
 
 @frappe.whitelist()
 def get_events(start, end, filters=None):
