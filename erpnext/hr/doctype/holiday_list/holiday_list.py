@@ -70,7 +70,7 @@ class HolidayList(Document):
 				if holiday.is_weekly_off:
 					continue
 
-			create_holiday_event(holiday, self.name)
+				create_holiday_event(holiday, self.name)
 		else:
 			holidays = [frappe.utils.get_datetime_str(holiday.holiday_date) for holiday in self.holidays if not holiday.is_weekly_off]
 
