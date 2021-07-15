@@ -78,7 +78,7 @@ def create_events(holiday_list):
 			"all_day":1
 		}).insert(ignore_permissions=True)
 
-	doc = frappe.get_doc("Holiday List",holiday_list)
+	doc = frappe.get_doc("Holiday List", holiday_list)
 	calendar_events = frappe.get_all("Event", filters={"holiday_list": doc.name}, fields=["name", "starts_on"])
 	if not calendar_events:
 		for holiday in doc.holidays:
@@ -179,4 +179,3 @@ def send_holiday_notification():
 				subject="Holiday Notification",
 				message=message
 			)
-
