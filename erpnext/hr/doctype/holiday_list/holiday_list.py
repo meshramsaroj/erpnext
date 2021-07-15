@@ -64,13 +64,13 @@ class HolidayList(Document):
 		self.set('holidays', [])
 
 	def on_update(self):
-		frappe.enqueue(create_events, holiday_list=self.name, now=True)
+		frappe.enqueue(create_events, holiday_list=self.name)
 
 def create_events(holiday_list):
 	def create_holiday_event(holiday, holiday_list):
 		frappe.get_doc({
 			"doctype": "Event",
-			"subject": "Holiday " + add_to_date(holiday.holiday_date,as_string=True),
+			"subject": "Holiday " + add_to_date(holiday.holiday_date, as_string=True),
 			"starts_on": holiday.holiday_date,
 			"event_category": "Holiday",
 			"holiday_list": holiday_list,
